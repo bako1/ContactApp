@@ -64,6 +64,7 @@ public class ContactsApp extends Application {
     // Initialise the Address Book from a file
     this.addressBook = this.mainController.loadAddressBookFromFile();
     this.addressBookDBHandler = new AddressBookDBHandler();
+
   }
 
   @Override
@@ -208,7 +209,7 @@ public class ContactsApp extends Application {
     addContactBtn.setGraphic(
         new ImageView(
           new Image(getClass().getResource("./icons/add_contact@2x.png").toExternalForm())));
-
+    //this.addressBook = new AddressBookDBHandler();
     addContactBtn.setOnAction(actionEvent -> mainController.addContact(this.addressBook, this));
 
     // Add the edit contact-button in the toolbar
