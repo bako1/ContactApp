@@ -92,7 +92,7 @@ public class MainController {
       ContactDetailsDialog contactDialog = new ContactDetailsDialog(selectedContact, true);
       contactDialog.showAndWait();
       this.addressBook = new AddressBookDBHandler();
-      addressBook.changeDetails(selectedContact.getPhone(),selectedContact);
+      this.addressBook.changeDetails(selectedContact.getPhone(),selectedContact);
 
       parent.updateObservableList();
     }
