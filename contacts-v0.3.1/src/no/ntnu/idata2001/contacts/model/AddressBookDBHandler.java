@@ -1,5 +1,7 @@
 package no.ntnu.idata2001.contacts.model;
 
+import org.eclipse.persistence.exceptions.DatabaseException;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -29,10 +31,15 @@ public class AddressBookDBHandler implements Iterable<ContactDetails>, Serializa
       em = this.emf.createEntityManager();
 
         try {
-            em.getTransaction().begin();
-            em.persist(contact);// contact into persistence context
-            em.getTransaction().commit();//store in database }
-        } finally {
+                 em.getTransaction().begin();
+                 em.persist(contact);// contact into persistence context
+                 em.getTransaction().commit();//store in database
+
+
+        } catch (DatabaseException dbe){
+            logger.info(dbe.getMessage());
+        }
+        finally {
 
             close();
         }
@@ -45,7 +52,7 @@ public class AddressBookDBHandler implements Iterable<ContactDetails>, Serializa
     public void removeContact(String phoneNumber) {
 
         em = emf.createEntityManager();
-    if(phoneNumber==null) {
+
         try {
             em.getTransaction().begin();
             String delete = "DELETE FROM ContactDetails contact " +
@@ -55,15 +62,17 @@ public class AddressBookDBHandler implements Iterable<ContactDetails>, Serializa
             em.getTransaction().commit();
 
 
-        } finally {
+        } catch (DatabaseException de){
+            logger.info(de.getMessage());
+        }
+        finally {
             close();
         }
     }
-    else {
-        logger.info("Trying to delete un existed value ");
-    }
 
-    }
+
+
+
 
     @Override
     public Collection<ContactDetails> getAllContacts() {
@@ -96,7 +105,11 @@ public class AddressBookDBHandler implements Iterable<ContactDetails>, Serializa
 
 
 
-        }finally{
+        }catch (DatabaseException dbe){
+            logger.info(dbe.getMessage());
+        }
+
+        finally{
             close();
 
         }
@@ -109,17 +122,17 @@ public class AddressBookDBHandler implements Iterable<ContactDetails>, Serializa
 
         try {
 
-            if (emf != null) {
-                emf.close();
-            }
             if (em != null) {
                 em.close();
+            }
+            if (emf != null) {
+                emf.close();
 
                 }
 
 
-        }catch (Exception e){
-            logger.fine(e.getMessage());
+        }catch (DatabaseException dbe){
+            logger.fine(dbe.getMessage());
 
         }
     }

@@ -62,8 +62,10 @@ public class ContactsApp extends Application {
     this.mainController = new MainController();
 
     // Initialise the Address Book from a file
-    this.addressBook = this.mainController.loadAddressBookFromFile();
+    //this.addressBook = this.mainController.loadAddressBookFromFile();
     this.addressBookDBHandler = new AddressBookDBHandler();
+    getAddressBookListWrapper();
+
 
   }
 
@@ -164,7 +166,7 @@ public class ContactsApp extends Application {
    * underlying LiteratureRegister.
    */
   public void updateObservableList() {
-    this.addressBookListWrapper.setAll(this.addressBook.getAllContacts());
+    this.addressBookListWrapper.setAll(this.addressBookDBHandler.getAllContacts());
   }
 
   /**
@@ -229,7 +231,7 @@ public class ContactsApp extends Application {
     deleteContactBtn.setOnAction(event ->
         mainController.deleteContact(
           this.contactDetailsTableView.getSelectionModel().getSelectedItem(),
-              this.addressBook, this));
+              this.addressBookDBHandler, this));
 
 
     //Add the Buttons to the ToolBar.

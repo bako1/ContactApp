@@ -1,5 +1,7 @@
 package no.ntnu.idata2001.contacts.model;
 
+import com.sun.istack.internal.NotNull;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -17,6 +19,8 @@ public class ContactDetails implements Comparable<ContactDetails>, Serializable 
 
   private String name;
   private String address;
+
+  @NotNull
   @Id
   private String phone;
   public ContactDetails() {

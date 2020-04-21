@@ -70,9 +70,9 @@ public class MainController {
 
     if (result.isPresent()) {
       ContactDetails newContactDetails = result.get();
-      this.addressBook = new AddressBookDBHandler();
-      addressBook.addContact(newContactDetails);
+     this.addressBook = new AddressBookDBHandler();
       this.addressBook.addContact(newContactDetails);
+     // this.addressBook.addContact(newContactDetails);
 
       parent.updateObservableList();
     }
@@ -116,7 +116,7 @@ public class MainController {
     } else {
       if (showDeleteConfirmationDialog()) {
         this.addressBook = new AddressBookDBHandler();
-        addressBook.removeContact(selectedContact.getPhone());
+        //addressBook.removeContact(selectedContact.getPhone());
         this.addressBook.removeContact(selectedContact.getPhone());
         parent.updateObservableList();
       }
