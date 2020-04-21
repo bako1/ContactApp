@@ -129,6 +129,7 @@ public class AddressBookFileHandler {
     // even though you cannot handle a thrown exception in this method.
     try (OutputStream outputStream = Files.newOutputStream(file.toPath())) {
       ObjectOutputStream objectOutStream = new ObjectOutputStream(outputStream);
+
       objectOutStream.writeObject(addressBook);
     }
   }
